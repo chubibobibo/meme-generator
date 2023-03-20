@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
@@ -7,11 +7,31 @@ import Col from 'react-bootstrap/Col';
 import memesData from '../memesData'
 
 function InputForm() {
+    //setting up a new state with an initial state of an empty string:
+    const [memeImg, setMemeImg] = useState(
+        {
+            topText: '',
+            bottomtext: '',
+            randomImage: 'http://i.imgflip.com/1bij.jpg'
+        }
+    )
 
-    //fucntion to handle clicks by creating a random number that we will use to select a random entry in our memesdata(memesData.data.memes) the random number must be the between 0 and the exact length of the array. Then we will be using taht randNumn to select the url of the image. for the meantime we will jsut log it out
+    const [allMemeImages, setAllMemeImages] = useState(memesData)
+
+
+    //function to handle clicks by creating a random number that we will use to select a random entry in our memesdata(memesData.data.memes) the random number must be the between 0 and the exact length of the array. Then we will be using taht randNumn to select the url of the image. for the meantime we will jsut log it out
+    //UPDATE: integrate the state in our click handler function
     function handleClick() {
-        const randNum = Math.floor(Math.random() * memesData.data.memes.length)
-        const url = memesData.data.memes[randNum].url
+        const randNum = Math.floor(Math.random() * allMemeImages.data.memes.length)
+        const url = allMemeImages.data.memes[randNum].url
+        //setting the new state with the random meme image we genrated
+        setAllMemeImages(prevAllMemeImages =>
+            prevAllMemeImages = allMemeImages.data.memes[randNum].url
+        )
+        setMemeImg(prevMemeImg => ({
+            ...prevMemeImg,
+            randomImage: 'allMemeImages'
+        }))
         console.log('clicked')
         console.log(url)
     }
@@ -36,6 +56,7 @@ function InputForm() {
                     Get a new meme image
                 </Button>
             </div>
+            <img src={memeImg} alt="" style={{ margin: '3rem 3rem', padding: '0rem 20rem' }} />
         </Container>
     )
 }
