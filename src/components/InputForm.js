@@ -1,10 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import memesData from '../memesData'
 
 function InputForm() {
     //setting up a new state with an initial state of an empty string:
@@ -15,8 +14,29 @@ function InputForm() {
             randomImage: 'http://i.imgflip.com/1bij.jpg'
         }
     )
-    const [allMemeImages, setAllMemeImages] = useState(memesData)
+    const [allMemeImages, setAllMemeImages] = useState()
 
+    // useEffect(() => {
+    //     fetch("https://api.imgflip.com/get_memes")
+    //         .then(res => {
+    //             return res.json()
+    //         })
+    //         .then(data => {
+    //             setAllMemeImages(data)
+    //         })
+    // }, [])
+
+    //Another way of using useEffect in calling an API:
+    useEffect(() => {
+        //declaring an async function
+        async function getMemes() {
+            const res = await fetch("https://api.imgflip.com/get_memes")
+            const data = await res.json()
+            setAllMemeImages(data)
+        }
+        //calling the async function created to run it
+        getMemes()
+    }, [])
 
     //function to handle clicks by creating a random number that we will use to select a random entry in our memesdata(memesData.data.memes) the random number must be the between 0 and the exact length of the array. Then we will be using taht randNumn to select the url of the image. for the meantime we will jsut log it out
     //UPDATE: integrate the state in our click handler function
