@@ -11,11 +11,10 @@ function InputForm() {
     const [memeImg, setMemeImg] = useState(
         {
             topText: '',
-            bottomtext: '',
+            bottomText: '',
             randomImage: 'http://i.imgflip.com/1bij.jpg'
         }
     )
-
     const [allMemeImages, setAllMemeImages] = useState(memesData)
 
 
@@ -25,15 +24,21 @@ function InputForm() {
         const randNum = Math.floor(Math.random() * allMemeImages.data.memes.length)
         const url = allMemeImages.data.memes[randNum].url
         //setting the new state with the random meme image we genrated
-        setAllMemeImages(prevAllMemeImages =>
-            prevAllMemeImages = allMemeImages.data.memes[randNum].url
-        )
+        // setAllMemeImages(allMemeImages.data.memes[randNum].url
+        // )
         setMemeImg(prevMemeImg => ({
             ...prevMemeImg,
-            randomImage: 'allMemeImages'
+            randomImage: url,
         }))
         console.log('clicked')
-        console.log(url)
+        console.log(memeImg.randomImage)
+    }
+
+    function changeHandler(event) {
+        setMemeImg(prevMemeImg => ({
+            ...prevMemeImg,
+            [event.target.name]: event.target.value
+        }))
     }
     return (
         <Container className='input-form'>
@@ -41,22 +46,36 @@ function InputForm() {
                 <Row>
                     <Col className='first-input'>
                         <Form.Group className="mb-3 mt-5" controlId="formBasicText">
-                            <Form.Control type="text" placeholder="Shut up" />
+                            <Form.Control
+                                type="text"
+                                placeholder="Shut up"
+                                name='topText'
+                                onChange={changeHandler}
+                                value={memeImg.topText}
+                            />
                         </Form.Group>
                     </Col>
                     <Col className='second-input'>
                         <Form.Group className="mb-3" controlId="formBasicPassword">
-                            <Form.Control type="text" placeholder="and take my money" />
+                            <Form.Control
+                                type="text"
+                                placeholder="and take my money"
+                                name='bottomText'
+                                value={memeImg.bottomText}
+                                onChange={changeHandler}
+                            />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicCheckbox">
                         </Form.Group>
                     </Col>
                 </Row>
-                <Button onClick={handleClick} style={{ backgroundColor: 'blueviolet' }} className='btn-submit' variant="primary" type="submit">
+                <Button onClick={handleClick} style={{ backgroundColor: 'blueviolet' }} className='btn-submit' variant="primary">
                     Get a new meme image
                 </Button>
             </div>
-            <img src={memeImg} alt="" style={{ margin: '3rem 3rem', padding: '0rem 20rem' }} />
+            <h2 className='meme-text top'>{memeImg.topText}</h2>
+            <img src={memeImg.randomImage} alt="" style={{ margin: '3rem 3rem', padding: '0rem 20rem' }} />
+            <h2 className='meme-text bottom'>{memeImg.bottomText}</h2>
         </Container>
     )
 }
