@@ -37,13 +37,20 @@ styling input form */
   color-scheme: blueviolet;
 }
 
+.meme-image {
+  display: flex;
+  justify-content: center;
+  position: relative;
+
+}
+
 .meme-text {
   position: absolute;
   width: 80%;
   text-align: center;
   left: 50%;
   transform: translateX(-50%);
-  margin: 15px 0;
+  margin: auto;
   padding: 0 5px;
   font-family: impact, sans-serif;
   font-size: 2em;
@@ -63,9 +70,9 @@ styling input form */
 }
 
 .bottom {
-  bottom: 10rem;
+  bottom: 5rem;
 }
 
 .top {
-  top: 16rem;
+  top: 5rem;
 }

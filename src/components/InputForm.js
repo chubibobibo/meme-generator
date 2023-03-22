@@ -35,9 +35,10 @@ function InputForm() {
     }
 
     function changeHandler(event) {
+        const { name, value } = event.target
         setMemeImg(prevMemeImg => ({
             ...prevMemeImg,
-            [event.target.name]: event.target.value
+            [name]: event.target.value
         }))
     }
     return (
@@ -73,9 +74,11 @@ function InputForm() {
                     Get a new meme image
                 </Button>
             </div>
-            <h2 className='meme-text top'>{memeImg.topText}</h2>
-            <img src={memeImg.randomImage} alt="" style={{ margin: '3rem 3rem', padding: '0rem 20rem' }} />
-            <h2 className='meme-text bottom'>{memeImg.bottomText}</h2>
+            <div className='meme-image'>
+                <h2 className='meme-text top'>{memeImg.topText}</h2>
+                <img src={memeImg.randomImage} alt="" style={{ margin: '3rem 3rem', padding: '0rem 20rem', width: '80rem' }} />
+                <h2 className='meme-text bottom'>{memeImg.bottomText}</h2>
+            </div>
         </Container>
     )
 }
